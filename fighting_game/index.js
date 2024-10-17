@@ -149,9 +149,9 @@ class Fighter extends Sprite {
     }
 
     switchSprite(sprite) {
-        console.log('this.image', this.image)
+
         if (this.image === this.sprites.death.image) {
-            if (this.frameCurrent < this.sprites.death.framesMax - 1)
+            if (this.frameCurrent >= (this.sprites.death.framesMax - 1))
                 this.death = true;
             return
         };
