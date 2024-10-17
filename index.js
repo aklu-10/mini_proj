@@ -93,7 +93,6 @@ class Fighter extends Sprite {
             sprites[sprite].image.src = sprites[sprite].imgSrc;
         }
 
-        console.log('this.sprites', this.sprites)
     }
 
     // draw() {
@@ -115,7 +114,6 @@ class Fighter extends Sprite {
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
         // c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
@@ -149,7 +147,6 @@ class Fighter extends Sprite {
     }
 
     switchSprite(sprite) {
-
         if (this.image === this.sprites.death.image) {
             if (this.frameCurrent >= (this.sprites.death.framesMax - 1))
                 this.death = true;
@@ -217,6 +214,10 @@ class Fighter extends Sprite {
                 }
                 break;
         }
+    }
+
+    instantDeath() {
+        this.health = 0;
     }
 
 }
@@ -384,10 +385,13 @@ function determineWinner({ player, enemy, timerId }) {
     clearTimeout(timerId)
     if (player.health === enemy.health) {
         // alert('Tie')
+        document.querySelector('#winner').innerHTML = `<h1>Tie</h1>`;
     }
     else if (player.health > enemy.health) {
         // alert('Player 1 Wins')
+        document.querySelector('#winner').innerHTML = `<h1>Player 1 Wins</h1>`;
     } else {
+        document.querySelector('#winner').innerHTML = `<h1>Player 2 Wins</h1>`;
         // alert("Enemy Wins")
     }
 }
@@ -410,6 +414,7 @@ function decreaseTimer() {
 decreaseTimer();
 
 function animate() {
+
     window.requestAnimationFrame(animate);
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height)
@@ -479,11 +484,65 @@ function animate() {
         determineWinner({ player, enemy, timerId })
     }
 
+    console.log('position.x', player.position.x)
+    console.log('position.x', enemy.position.x)
+    
+    if(player.position.x > enemy.position.x+50){
+        // alert('Turn around')
+    }
+
 }
 
+let cheatcodes = ['1111', '2222']
+
+let currentCheatcode = '';
+let needToResetCheatCode = false;
+let resetTime = 500;
+
+function cheatCodeRunner(cheatcode) {
+    switch (cheatcode) {
+        case cheatcodes[0]:
+            player.instantDeath();
+            document.getElementById('enemyHP').style.width = player.health + '%';
+            player.switchSprite('death');
+            break;
+
+        case cheatcodes[1]:
+            enemy.instantDeath();
+            document.getElementById('playerHP').style.width = enemy.health + '%';
+            enemy.switchSprite('death');
+            break;
+    }
+}
+
+function checkCodeTimer() {
+    let timer;
+    return (key) => {
+        clearTimeout(timer);
+        if (needToResetCheatCode) {
+            currentCheatcode = key
+            needToResetCheatCode = false;
+        }
+        else
+            currentCheatcode += key;
+
+        timer = setTimeout(() => {
+            needToResetCheatCode = true;
+        }, resetTime)
+
+        if (cheatcodes.includes(currentCheatcode)) {
+            cheatCodeRunner(currentCheatcode);
+        }
+
+    }
+}
 animate();
 
+let codeTimer = checkCodeTimer();
+
 window.addEventListener('keydown', (event) => {
+    codeTimer(event.key);
+
     switch (event.key) {
         case 'd':
             keys.d.pressed = true;

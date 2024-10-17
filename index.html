@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fighting Game</title>
     <style>
-        *{
+        * {
             box-sizing: border-box;
         }
     </style>
@@ -15,25 +15,52 @@
 <body>
 
     <div style="position: relative; display: inline-block;">
-        <div style="position: absolute; display: flex; padding: 20px; width: 100%; align-items: center; justify-content: center;">
+        <div
+            style="position: absolute; display: flex; padding: 20px; width: 100%; align-items: center; justify-content: center;">
             <!-- Player health -->
             <div style="position: relative; width: 100%; height: 30px; display: flex; justify-content: flex-end;">
-                <div  style="border: 1px solid white; padding: 10px 0; height: 32px; width: 100%; "></div>
-                <div id="playerHP" style="background-color: blue; height: 30px; width: 100%; position: absolute; top: 0px; z-index: 2;"></div>
+                <div style="border: 1px solid white; padding: 10px 0; height: 32px; width: 100%; "></div>
+                <div id="playerHP"
+                    style="background-color: blue; height: 30px; width: 100%; position: absolute; top: 0px; z-index: 2;">
+                </div>
             </div>
 
             <!-- Timer -->
-            <div id="timer" style="background-color: red; height: 100px; width: 100px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 2rem;">
+            <div id="timer"
+                style="background-color: red; height: 100px; width: 100px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 2rem;">
                 10
             </div>
 
             <!-- Enemy health -->
             <div style="position: relative; width: 100%; height: 30px;">
-                <div  style="border: 1px solid white; padding: 10px 0; height: 32px; width: 100%;"></div>
-                <div id="enemyHP" style="background-color: blue; height: 30px; width: 100%; position: absolute; top: 0px; z-index: 2;"></div>
+                <div style="border: 1px solid white; padding: 10px 0; height: 32px; width: 100%;"></div>
+                <div id="enemyHP"
+                    style="background-color: blue; height: 30px; width: 100%; position: absolute; top: 0px; z-index: 2;">
+                </div>
             </div>
         </div>
         <canvas></canvas>
+        <div id="winner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+        <div>
+            <!-- <h1>Controls</h1> -->
+            <div style="display: flex; justify-content: space-around;">
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <h3>Player 1</h3>
+                    <p>W - Jump</p>
+                    <p>A - Left</p>
+                    <p>D - Right</p>
+                    <p>Spacebar - Attack</p>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <h3>Player 2</h3>
+                    <p>ArrowUp - Jump</p>
+                    <p>ArrowLeft - Left</p>
+                    <p>ArrowRight - Right</p>
+                    <p>ArrowDown - Attack</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </body>
